@@ -8,5 +8,8 @@ min_replicas        = 0
 max_replicas        = 3
 custom_domain        = "vediq.net"
 
-# Set this to true only after adding the A and TXT outputs to GoDaddy DNS.
-enable_custom_domain = false
+enable_custom_domain = true
+
+# Set this to true only after adding the www CNAME and asuid.www TXT records.
+enable_www_custom_domain = false
+demo_recipient_email     = "info@vediq.net"

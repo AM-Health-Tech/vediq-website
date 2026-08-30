@@ -28,7 +28,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="shell legal">
-        <span>© 2026 Vediq Ltd.</span>
+        <span>© 2026 Vediq Inc.</span>
         <span>For providers, ACOs and managed care organizations</span>
       </div>
     </footer>

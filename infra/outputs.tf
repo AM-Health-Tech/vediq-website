@@ -33,7 +33,35 @@ output "godaddy_domain_verification_record" {
   }
 }
 
+output "godaddy_www_cname_record" {
+  description = "GoDaddy CNAME record required to route www to Azure Container Apps."
+  value = {
+    type  = "CNAME"
+    name  = "www"
+    value = azurerm_container_app.website.ingress[0].fqdn
+  }
+}
+
+output "godaddy_www_verification_record" {
+  description = "GoDaddy TXT record Azure uses to verify ownership of www."
+  value = {
+    type  = "TXT"
+    name  = "asuid.www"
+    value = nonsensitive(azurerm_container_app.website.custom_domain_verification_id)
+  }
+}
+
 output "custom_domain_url" {
   description = "Custom HTTPS URL after DNS validation and the second Terraform apply."
   value       = var.enable_custom_domain ? "https://${var.custom_domain}" : null
+}
+
+output "demo_request_recipient" {
+  description = "Mailbox receiving server-side demo request notifications."
+  value       = var.demo_recipient_email
+}
+
+output "demo_email_sender" {
+  description = "Azure-managed sender address used for demo request notifications."
+  value       = "DoNotReply@${azurerm_email_communication_service_domain.website.from_sender_domain}"
 }

@@ -215,7 +215,12 @@ h1 em, h2 em {
 .demo-form select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--ink) 50%), linear-gradient(135deg, var(--ink) 50%, transparent 50%); background-position: calc(100% - 22px) center, calc(100% - 16px) center; background-size: 6px 6px, 6px 6px; background-repeat: no-repeat; }
 .demo-form input:focus, .demo-form select:focus, .demo-form textarea:focus { outline: 2px solid var(--blue); outline-offset: 2px; }
 .demo-submit { grid-column: 1 / -1; margin-top: 12px; justify-self: start; }
+.demo-submit:disabled { cursor: wait; opacity: .7; }
 .form-note { grid-column: 1 / -1; margin: 0; color: #405b55; font-size: 13px; line-height: 1.55; max-width: 620px; }
+.form-honeypot { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.form-status { grid-column: 1 / -1; min-height: 24px; font-size: 15px; font-weight: 700; }
+.form-status.success { color: #26613f; }
+.form-status.error { color: #9a2c2c; }
 
 a:focus-visible, button:focus-visible, .nav-toggle-btn:focus-visible { outline: 3px solid var(--blue); outline-offset: 4px; }
 

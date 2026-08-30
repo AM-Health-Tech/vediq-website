@@ -41,7 +41,19 @@ variable "custom_domain" {
 }
 
 variable "enable_custom_domain" {
-  description = "Create the custom-domain binding after the GoDaddy A and TXT validation records exist."
+  description = "Manage the apex custom-domain binding after the GoDaddy A and TXT validation records exist."
+  type        = bool
+  default     = true
+}
+
+variable "enable_www_custom_domain" {
+  description = "Create the www binding after the GoDaddy CNAME and asuid.www TXT records exist."
   type        = bool
   default     = false
+}
+
+variable "demo_recipient_email" {
+  description = "Mailbox that receives website demo requests."
+  type        = string
+  default     = "info@vediq.net"
 }

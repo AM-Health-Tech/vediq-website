@@ -1,0 +1,9 @@
+{
+  "name": "vediq-website-server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@azure/communication-email": "^1.0.1"
+  }
+}

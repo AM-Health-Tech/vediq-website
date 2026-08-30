@@ -3,7 +3,6 @@ locals {
     [
       "Dockerfile.azure",
       "next.config.ts",
-      "nginx.azure.conf",
       "package-lock.json",
       "package.json",
       "postcss.config.mjs",
@@ -11,6 +10,7 @@ locals {
     ],
     sort(tolist(fileset("${path.module}/..", "app/**"))),
     sort(tolist(fileset("${path.module}/..", "public/**"))),
+    sort(tolist(fileset("${path.module}/..", "server/**"))),
   )
 
   source_hash = substr(sha256(join("|", [
@@ -43,6 +43,32 @@ resource "azurerm_container_registry" "website" {
   sku                 = "Basic"
   admin_enabled       = true
   tags                = local.tags
+}
+
+resource "azurerm_communication_service" "website" {
+  name                = "vediq-web-${random_string.registry_suffix.result}"
+  resource_group_name = azurerm_resource_group.website.name
+  data_location       = "United States"
+  tags                = local.tags
+}
+
+resource "azurerm_email_communication_service" "website" {
+  name                = "vediq-web-email-${random_string.registry_suffix.result}"
+  resource_group_name = azurerm_resource_group.website.name
+  data_location       = "United States"
+  tags                = local.tags
+}
+
+resource "azurerm_email_communication_service_domain" "website" {
+  name              = "AzureManagedDomain"
+  email_service_id  = azurerm_email_communication_service.website.id
+  domain_management = "AzureManaged"
+  tags              = local.tags
+}
+
+resource "azurerm_communication_service_email_domain_association" "website" {
+  communication_service_id = azurerm_communication_service.website.id
+  email_service_domain_id  = azurerm_email_communication_service_domain.website.id
 }
 
 resource "docker_image" "website" {
@@ -95,6 +121,11 @@ resource "azurerm_container_app" "website" {
     value = azurerm_container_registry.website.admin_password
   }
 
+  secret {
+    name  = "email-connection-string"
+    value = azurerm_communication_service.website.primary_connection_string
+  }
+
   registry {
     server               = azurerm_container_registry.website.login_server
     username             = azurerm_container_registry.website.admin_username
@@ -110,6 +141,21 @@ resource "azurerm_container_app" "website" {
       image  = docker_registry_image.website.name
       cpu    = 0.25
       memory = "0.5Gi"
+
+      env {
+        name        = "ACS_EMAIL_CONNECTION_STRING"
+        secret_name = "email-connection-string"
+      }
+
+      env {
+        name  = "EMAIL_SENDER_ADDRESS"
+        value = "DoNotReply@${azurerm_email_communication_service_domain.website.from_sender_domain}"
+      }
+
+      env {
+        name  = "DEMO_RECIPIENT_EMAIL"
+        value = var.demo_recipient_email
+      }
 
       liveness_probe {
         transport = "HTTP"
@@ -149,6 +195,20 @@ resource "azurerm_container_app_custom_domain" "website" {
   lifecycle {
     # Azure assigns these values asynchronously when it provisions the managed
     # certificate. Ignoring them prevents Terraform from recreating the domain.
+    ignore_changes = [
+      certificate_binding_type,
+      container_app_environment_certificate_id,
+    ]
+  }
+}
+
+resource "azurerm_container_app_custom_domain" "www" {
+  count = var.enable_www_custom_domain ? 1 : 0
+
+  name             = "www.${var.custom_domain}"
+  container_app_id = azurerm_container_app.website.id
+
+  lifecycle {
     ignore_changes = [
       certificate_binding_type,
       container_app_environment_certificate_id,
