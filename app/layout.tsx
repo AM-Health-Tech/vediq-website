@@ -22,10 +22,11 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: 'Vediq — The intelligent sidecar for value-based care',
-  description: 'Ambient intelligence, RAF recapture, gap closure, ICD and CPT coding support, and real-time EHR write-back at the point of care.',
-  openGraph: { title: 'Vediq — Every encounter, fully activated', description: 'The intelligent clinical sidecar for value-based care.', images: ['/og.png'] },
-  twitter: { card: 'summary_large_image', title: 'Vediq — Every encounter, fully activated', description: 'The intelligent clinical sidecar for value-based care.', images: ['/og.png'] },
+  metadataBase: new URL('https://vediq.net'),
+  title: 'Vediq — Close value-based opportunities during the encounter',
+  description: 'AI-assisted encounter guidance for documentation, risk and quality opportunities, with clinicians in control.',
+  openGraph: { title: 'Vediq — Close more opportunities during the encounter', description: 'Encounter intelligence for primary care and value-based care teams.', images: ['/og.png'] },
+  twitter: { card: 'summary_large_image', title: 'Vediq — Close more opportunities during the encounter', description: 'Encounter intelligence for primary care and value-based care teams.', images: ['/og.png'] },
 };
 
 export default function RootLayout({

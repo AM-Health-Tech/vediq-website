@@ -10,7 +10,7 @@ export default function Header() {
 
         <input type="checkbox" id="nav-toggle" className="nav-toggle-input" />
 
-        <div className="nav-right">
+        <div className="nav-right" id="main-navigation">
           <nav className="desktop-nav" aria-label="Main navigation">
             <div className="nav-item">
               <Link href="/#sidecar" className="nav-trigger">
@@ -41,7 +41,7 @@ export default function Header() {
           </Link>
         </div>
 
-        <label htmlFor="nav-toggle" className="nav-toggle-btn" aria-label="Toggle menu">
+        <label htmlFor="nav-toggle" className="nav-toggle-btn" aria-label="Toggle menu" aria-controls="main-navigation">
           <span></span>
           <span></span>
           <span></span>

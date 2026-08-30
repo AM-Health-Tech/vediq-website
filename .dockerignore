@@ -1,0 +1,12 @@
+.git
+.next
+.vinext
+.wrangler
+dist
+infra/.terraform
+infra/*.tfstate
+infra/*.tfstate.*
+node_modules
+npm-debug.log*
+outputs
+work

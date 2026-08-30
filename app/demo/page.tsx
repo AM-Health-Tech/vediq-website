@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Request a demo — Vediq',
-  description: 'Tell us about your practice, ACO or plan and what you are trying to solve, and we will follow up to set up a demo.',
+  description: 'Request a focused walkthrough of Vediq for your primary care or value-based care workflow.',
 };
 
 export default function DemoPage() {
@@ -11,8 +11,8 @@ export default function DemoPage() {
       <section className="section shell">
         <div className="intro">
           <span>Request a demo</span>
-          <h2>Tell us where<br />you need help.</h2>
-          <p>Share a few details about your organization and what you&apos;re trying to solve. Submitting opens your email client with this pre-filled to send to <strong>info@vediq.net</strong> — for now, that&apos;s how requests reach us directly.</p>
+          <h2>See Vediq in<br />your workflow.</h2>
+          <p>Request a focused walkthrough of the Vediq sidecar and command center. We&apos;ll discuss your organization, current EHR workflow and value-based care priorities.</p>
         </div>
 
         <form className="demo-form" action="mailto:info@vediq.net?subject=Vediq%20demo%20request" method="post" encType="text/plain">
@@ -29,11 +29,6 @@ export default function DemoPage() {
             <label htmlFor="email">Work email*</label>
             <input id="email" name="Work email" type="email" required />
           </div>
-          <div className="field">
-            <label htmlFor="title">Job title</label>
-            <input id="title" name="Job title" type="text" />
-          </div>
-
           <div className="field field-wide">
             <label htmlFor="problem">What are you trying to solve?</label>
             <textarea id="problem" name="What are you trying to solve" rows={3} />
@@ -56,25 +51,10 @@ export default function DemoPage() {
             </select>
           </div>
 
-          <div className="field">
-            <label htmlFor="region">State / region</label>
-            <input id="region" name="State or region" type="text" />
-          </div>
-          <div className="field">
-            <label htmlFor="source">How did you hear about Vediq?</label>
-            <select id="source" name="How did you hear about Vediq" defaultValue="">
-              <option value="" disabled>Please select</option>
-              <option value="Referral">Referral</option>
-              <option value="LinkedIn">LinkedIn</option>
-              <option value="Conference or event">Conference or event</option>
-              <option value="Search">Search</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
-
           <button type="submit" className="button dark demo-submit">
             Request a demo <b>↗</b>
           </button>
+          <p className="form-note">This currently opens your email app with the request addressed to <strong>info@vediq.net</strong>. Please do not include protected health information (PHI).</p>
         </form>
       </section>
     </main>

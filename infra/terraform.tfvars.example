@@ -1,0 +1,12 @@
+# The defaults already target the same subscription and region as Vediq.
+# Override values here only when deploying to a different environment.
+subscription_id     = "6214bb47-3d8d-489d-ba82-a8d893a7aeab"
+resource_group_name = "vediq-websit-rg"
+location            = "eastus"
+container_app_name  = "vediq-website"
+min_replicas        = 0
+max_replicas        = 3
+custom_domain        = "vediq.net"
+
+# Set this to true only after adding the A and TXT outputs to GoDaddy DNS.
+enable_custom_domain = false
