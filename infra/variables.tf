@@ -25,7 +25,7 @@ variable "container_app_name" {
 variable "min_replicas" {
   description = "Minimum replicas. Zero enables scale-to-zero."
   type        = number
-  default     = 0
+  default     = 1
 }
 
 variable "max_replicas" {
